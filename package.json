@@ -1,0 +1,17 @@
+{
+  "name": "@yellowinq/root",
+  "version": "1.0.0",
+  "description": "",
+  "workspaces": ["packages/*"],
+  "engines": {
+    "pnpm": ">=7.18.0"
+  },
+  "packageManager": "pnpm@7.18.0",
+  "devDependencies": {
+    "pnpm": "^7.18.0"
+  },
+
+  "keywords": [],
+  "author": "yellowinq",
+  "license": "ISC"
+}
