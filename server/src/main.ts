@@ -9,7 +9,7 @@ import { WebSocketServer } from 'ws';
 import { useServer } from 'graphql-ws/lib/use/ws';
 import { schema } from './constants/gql';
 
-const PORT = 3000
+const PORT = process.env.PORT || 3000
 const app = express()
 
 const httpServer = createServer(app)

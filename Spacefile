@@ -1,0 +1,16 @@
+# Spacefile Docs: https://go.deta.dev/docs/spacefile/v0
+v: 0
+app_name: yellowinq
+micros:
+  - name: yellowinq-app
+    src: ./app
+    engine: next
+    primary: true
+
+  - name: yellowinq-server
+    src: ./server
+    engine: nodejs16
+    path: api
+    commands:
+      - yarn build
+    run: "node dist/main.js"
