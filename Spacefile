@@ -4,13 +4,19 @@ app_name: yellowinq
 micros:
   - name: yellowinq-app
     src: ./app
-    engine: next
+    engine: svelte-kit
     primary: true
 
   - name: yellowinq-server
     src: ./server
     engine: nodejs16
     path: api
+    presets:
+      api_keys: true
+      env:
+        - name: NODE_ENV
+          description: 'environment'
+          default: 'production'
     commands:
       - yarn build
     run: "node dist/main.js"
