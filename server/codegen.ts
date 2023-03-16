@@ -4,12 +4,13 @@ const config: CodegenConfig = {
   schema: 'schema.graphql',
   generates: {
     'src/graphql/resolvers-types.ts': {
-      config: {
-        useIndexSignature: true,
-      },
       plugins: ['typescript', 'typescript-resolvers'],
+      config: {
+        scalars: {
+          DateTime: 'Date'
+        }
+      }
     },
-  },
-  watch: true
+  }
 };
 export default config;

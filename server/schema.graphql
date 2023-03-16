@@ -1,8 +1,26 @@
-type Book {
-  title: String
-  author: String
+scalar DateTime
+
+type Message {
+  datetime: DateTime!
+  message: String!
+  sender: String!
+  channelId: String!
+}
+
+input MessageInput {
+  message: String!
+  sender: String!
+  channelId: String!
 }
 
 type Query {
-  books: [Book]
+  findIdMessage(channelId: String!): [Message!]!
+}
+
+type Subscription {
+  followMessage(channelId: String!): Message!
+}
+
+type Mutation {
+  broadcastMessage(message: MessageInput!): Boolean!
 }

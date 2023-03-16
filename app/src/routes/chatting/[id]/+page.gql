@@ -1,0 +1,8 @@
+query FindIdMessage($id: String!) {
+  findIdMessage(channelId: $id) {
+    channelId
+    datetime
+    message
+    sender
+  }
+}

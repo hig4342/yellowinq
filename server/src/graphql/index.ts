@@ -1,56 +1,52 @@
-import { readFileSync } from 'fs';
-import { Server } from 'http';
-import { WebSocketServer } from 'ws';
-import { useServer } from 'graphql-ws/lib/use/ws';
-import { ApolloServer } from '@apollo/server';
-import { ApolloServerPluginDrainHttpServer } from '@apollo/server/plugin/drainHttpServer';
+import { readFileSync } from 'node:fs'
+import { createSchema, createPubSub } from "graphql-yoga";
+import { Message, Resolvers } from './resolvers-types'
+import { messageDB } from '@/database/db';
+import { DateTimeResolver } from 'graphql-scalars';
+import { compareAsc } from 'date-fns';
+import { MessageModel } from '@/models/message';
 
-import { makeExecutableSchema } from '@graphql-tools/schema';
-import { Resolvers } from './resolvers-types';
+const pubSub = createPubSub<{
+  'chatting:followMessage': [channelId: string, payload: Message]
+}>()
 
 const typeDefs = readFileSync('./schema.graphql', 'utf8')
 
-const books = [
-  {
-    title: "test1",
-    author: "person1"
-  },
-  {
-    title: "test2",
-    author: "person2"
-  },
-]
-
 const resolvers: Resolvers = {
+  DateTime: DateTimeResolver,
   Query: {
-    books: () => books
+    findIdMessage: async (_, { channelId }) => {
+      const { items: messages } = await messageDB.fetch({channelId})
+
+      const result = (messages as Array<MessageModel>)
+        .map((v) => ({...v, datetime: new Date(v.datetime)}))
+        .sort((a, b) => compareAsc(a.datetime, b.datetime))
+      return result
+    }
   },
-};
-
-export function GraphQLInit(httpServer: Server) {
-  const schema = makeExecutableSchema({ typeDefs, resolvers });
-  
-  const wsServer = new WebSocketServer({
-    server: httpServer,
-    path: '/graphql',
-  });
-  const serverCleanup = useServer({ schema }, wsServer)
-
-  const server = new ApolloServer({
-    schema,
-    plugins: [
-      ApolloServerPluginDrainHttpServer({ httpServer }),
-      {
-        async serverWillStart() {
-          return {
-            async drainServer() {
-              await serverCleanup.dispose();
-            },
-          };
-        },
-      },
-    ],
-  });
-
-  return server
+  Subscription: {
+    followMessage: {
+      subscribe: (_, { channelId }) => pubSub.subscribe('chatting:followMessage', channelId),
+      resolve: (payload: any) => payload
+    }
+  },
+  Mutation: {
+    broadcastMessage: async (_, { message }) => {
+      const date = new Date()
+      const data = {
+        ...message,
+        datetime: date.getTime(),
+      }
+      const payload = {
+        ...message,
+        datetime: date
+      }
+      console.log(payload)
+      await messageDB.put(data)
+      pubSub.publish('chatting:followMessage', message.channelId, payload)
+      return true
+    }
+  }
 }
+
+export const schema = createSchema({typeDefs, resolvers})

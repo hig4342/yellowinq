@@ -1,9 +1,10 @@
-import { GraphQLResolveInfo } from 'graphql';
+import { GraphQLResolveInfo, GraphQLScalarType, GraphQLScalarTypeConfig } from 'graphql';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
+export type RequireFields<T, K extends keyof T> = Omit<T, K> & { [P in K]-?: NonNullable<T[P]> };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -11,21 +12,54 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
+  DateTime: Date;
 };
 
-export type Book = {
-  __typename?: 'Book';
-  author?: Maybe<Scalars['String']>;
-  title?: Maybe<Scalars['String']>;
+export type Message = {
+  __typename?: 'Message';
+  channelId: Scalars['String'];
+  datetime: Scalars['DateTime'];
+  message: Scalars['String'];
+  sender: Scalars['String'];
+};
+
+export type MessageInput = {
+  channelId: Scalars['String'];
+  message: Scalars['String'];
+  sender: Scalars['String'];
+};
+
+export type Mutation = {
+  __typename?: 'Mutation';
+  broadcastMessage: Scalars['Boolean'];
+};
+
+
+export type MutationBroadcastMessageArgs = {
+  message: MessageInput;
 };
 
 export type Query = {
   __typename?: 'Query';
-  books?: Maybe<Array<Maybe<Book>>>;
+  findIdMessage: Array<Message>;
 };
 
-export type WithIndex<TObject> = TObject & Record<string, any>;
-export type ResolversObject<TObject> = WithIndex<TObject>;
+
+export type QueryFindIdMessageArgs = {
+  channelId: Scalars['String'];
+};
+
+export type Subscription = {
+  __typename?: 'Subscription';
+  followMessage: Message;
+};
+
+
+export type SubscriptionFollowMessageArgs = {
+  channelId: Scalars['String'];
+};
+
+
 
 export type ResolverTypeWrapper<T> = Promise<T> | T;
 
@@ -94,33 +128,58 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 
 
 /** Mapping between all available schema types and the resolvers types */
-export type ResolversTypes = ResolversObject<{
-  Book: ResolverTypeWrapper<Book>;
+export type ResolversTypes = {
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
+  DateTime: ResolverTypeWrapper<Scalars['DateTime']>;
+  Message: ResolverTypeWrapper<Message>;
+  MessageInput: MessageInput;
+  Mutation: ResolverTypeWrapper<{}>;
   Query: ResolverTypeWrapper<{}>;
   String: ResolverTypeWrapper<Scalars['String']>;
-}>;
+  Subscription: ResolverTypeWrapper<{}>;
+};
 
 /** Mapping between all available schema types and the resolvers parents */
-export type ResolversParentTypes = ResolversObject<{
-  Book: Book;
+export type ResolversParentTypes = {
   Boolean: Scalars['Boolean'];
+  DateTime: Scalars['DateTime'];
+  Message: Message;
+  MessageInput: MessageInput;
+  Mutation: {};
   Query: {};
   String: Scalars['String'];
-}>;
+  Subscription: {};
+};
 
-export type BookResolvers<ContextType = any, ParentType extends ResolversParentTypes['Book'] = ResolversParentTypes['Book']> = ResolversObject<{
-  author?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  title?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+export interface DateTimeScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['DateTime'], any> {
+  name: 'DateTime';
+}
+
+export type MessageResolvers<ContextType = any, ParentType extends ResolversParentTypes['Message'] = ResolversParentTypes['Message']> = {
+  channelId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  datetime?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  message?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  sender?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-}>;
+};
 
-export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
-  books?: Resolver<Maybe<Array<Maybe<ResolversTypes['Book']>>>, ParentType, ContextType>;
-}>;
+export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
+  broadcastMessage?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType, RequireFields<MutationBroadcastMessageArgs, 'message'>>;
+};
 
-export type Resolvers<ContextType = any> = ResolversObject<{
-  Book?: BookResolvers<ContextType>;
+export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
+  findIdMessage?: Resolver<Array<ResolversTypes['Message']>, ParentType, ContextType, RequireFields<QueryFindIdMessageArgs, 'channelId'>>;
+};
+
+export type SubscriptionResolvers<ContextType = any, ParentType extends ResolversParentTypes['Subscription'] = ResolversParentTypes['Subscription']> = {
+  followMessage?: SubscriptionResolver<ResolversTypes['Message'], "followMessage", ParentType, ContextType, RequireFields<SubscriptionFollowMessageArgs, 'channelId'>>;
+};
+
+export type Resolvers<ContextType = any> = {
+  DateTime?: GraphQLScalarType;
+  Message?: MessageResolvers<ContextType>;
+  Mutation?: MutationResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
-}>;
+  Subscription?: SubscriptionResolvers<ContextType>;
+};
 
