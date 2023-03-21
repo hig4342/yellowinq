@@ -7,8 +7,8 @@
     message: string;
     sender: string;
   }
-  export let user: string
-  $: isMe = message.sender === user
+  export let userId: string
+  $: isMe = message.sender === userId
 </script>
 
 <li class="chat {isMe ? 'chat-end' : 'chat-start'}" >
@@ -18,13 +18,13 @@
         <img src={avatar} alt="avatar"/>
       </div>
     </div>
-    <div class="chat-header">
+    <div class="chat-header text-sm opacity-60">
       {message.sender}
     </div>
   {/if}
   <div class="chat-bubble py-1 px-2 min-h-0 rounded-xl">
-    {message.message}
-    <time class="chat-time text-xs opacity-50">{format(message.datetime, 'p')}</time>
+    <span>{message.message}</span>
+    <time class="chat-time absolute bottom-0 w-max text-xs opacity-50">{format(message.datetime, 'p')}</time>
   </div>
 </li>
 
@@ -38,11 +38,6 @@
     color: black;
   }
 
-  .chat-time {
-    position: absolute;
-    bottom: 0;
-    width: max-content;
-  }
   .chat-start .chat-time {
     right: 0;
     transform: translateX(calc(100% + .25rem));

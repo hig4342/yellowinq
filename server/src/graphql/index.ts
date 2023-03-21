@@ -5,6 +5,7 @@ import { messageDB } from '@/database/db';
 import { DateTimeResolver } from 'graphql-scalars';
 import { compareAsc } from 'date-fns';
 import { MessageModel } from '@/models/message';
+import { GenerateService } from '@/services/generate.service';
 
 const pubSub = createPubSub<{
   'chatting:followMessage': [channelId: string, payload: Message]
@@ -22,6 +23,12 @@ const resolvers: Resolvers = {
         .map((v) => ({...v, datetime: new Date(v.datetime)}))
         .sort((a, b) => compareAsc(a.datetime, b.datetime))
       return result
+    },
+    getRandomCoordinate: async (_, { country }) => {
+      return await new GenerateService().generateCoordinate(country)
+    },
+    getCountries: () => {
+      return GenerateService.getCountries()
     }
   },
   Subscription: {
@@ -41,7 +48,6 @@ const resolvers: Resolvers = {
         ...message,
         datetime: date
       }
-      console.log(payload)
       await messageDB.put(data)
       pubSub.publish('chatting:followMessage', message.channelId, payload)
       return true

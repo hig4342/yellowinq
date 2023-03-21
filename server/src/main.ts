@@ -7,12 +7,17 @@ import cors from 'cors'
 import bodyParser from 'body-parser'
 
 const PORT = process.env.PORT || 3000
-const app = express()
-const yoga = createYoga({schema})
 
-app.use(cors(), bodyParser.json())
-app.use('/graphql', yoga)
+const main = async () => {
+  const app = express()
+  const yoga = createYoga({schema})
+  
+  app.use(cors(), bodyParser.json())
+  app.use('/graphql', yoga)
+  
+  app.listen(PORT, () => {
+    console.log(`Server is now running on http://localhost:${PORT}/`);
+  });
+}
 
-app.listen(PORT, () => {
-  console.log(`Server is now running on http://localhost:${PORT}/`);
-});
+main()

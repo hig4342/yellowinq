@@ -15,6 +15,12 @@ export type Scalars = {
   DateTime: Date;
 };
 
+export type Coordinate = {
+  __typename?: 'Coordinate';
+  latitude: Scalars['Float'];
+  longitude: Scalars['Float'];
+};
+
 export type Message = {
   __typename?: 'Message';
   channelId: Scalars['String'];
@@ -42,11 +48,18 @@ export type MutationBroadcastMessageArgs = {
 export type Query = {
   __typename?: 'Query';
   findIdMessage: Array<Message>;
+  getCountries: Array<Scalars['String']>;
+  getRandomCoordinate: Coordinate;
 };
 
 
 export type QueryFindIdMessageArgs = {
   channelId: Scalars['String'];
+};
+
+
+export type QueryGetRandomCoordinateArgs = {
+  country: Scalars['String'];
 };
 
 export type Subscription = {
@@ -130,7 +143,9 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
+  Coordinate: ResolverTypeWrapper<Coordinate>;
   DateTime: ResolverTypeWrapper<Scalars['DateTime']>;
+  Float: ResolverTypeWrapper<Scalars['Float']>;
   Message: ResolverTypeWrapper<Message>;
   MessageInput: MessageInput;
   Mutation: ResolverTypeWrapper<{}>;
@@ -142,13 +157,21 @@ export type ResolversTypes = {
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
   Boolean: Scalars['Boolean'];
+  Coordinate: Coordinate;
   DateTime: Scalars['DateTime'];
+  Float: Scalars['Float'];
   Message: Message;
   MessageInput: MessageInput;
   Mutation: {};
   Query: {};
   String: Scalars['String'];
   Subscription: {};
+};
+
+export type CoordinateResolvers<ContextType = any, ParentType extends ResolversParentTypes['Coordinate'] = ResolversParentTypes['Coordinate']> = {
+  latitude?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
+  longitude?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export interface DateTimeScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['DateTime'], any> {
@@ -169,6 +192,8 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   findIdMessage?: Resolver<Array<ResolversTypes['Message']>, ParentType, ContextType, RequireFields<QueryFindIdMessageArgs, 'channelId'>>;
+  getCountries?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
+  getRandomCoordinate?: Resolver<ResolversTypes['Coordinate'], ParentType, ContextType, RequireFields<QueryGetRandomCoordinateArgs, 'country'>>;
 };
 
 export type SubscriptionResolvers<ContextType = any, ParentType extends ResolversParentTypes['Subscription'] = ResolversParentTypes['Subscription']> = {
@@ -176,6 +201,7 @@ export type SubscriptionResolvers<ContextType = any, ParentType extends Resolver
 };
 
 export type Resolvers<ContextType = any> = {
+  Coordinate?: CoordinateResolvers<ContextType>;
   DateTime?: GraphQLScalarType;
   Message?: MessageResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;

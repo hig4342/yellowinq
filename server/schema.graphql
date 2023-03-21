@@ -7,6 +7,11 @@ type Message {
   channelId: String!
 }
 
+type Coordinate {
+  latitude: Float!
+  longitude: Float!
+}
+
 input MessageInput {
   message: String!
   sender: String!
@@ -15,6 +20,8 @@ input MessageInput {
 
 type Query {
   findIdMessage(channelId: String!): [Message!]!
+  getRandomCoordinate(country: String!): Coordinate!
+  getCountries: [String!]!
 }
 
 type Subscription {

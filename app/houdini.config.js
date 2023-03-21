@@ -2,12 +2,13 @@
 
 /** @type {import('houdini').ConfigFile} */
 const config = {
-  "watchSchema": {
+  watchSchema: {
     "url": "http://localhost:3000/graphql"
   },
-  "plugins": {
+  plugins: {
     "houdini-svelte": {}
   },
+  defaultCachePolicy: 'CacheAndNetwork',
   scalars: {
     DateTime: {
       type: 'Date',

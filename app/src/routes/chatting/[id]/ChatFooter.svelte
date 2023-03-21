@@ -9,23 +9,30 @@
   `)
 
   export let channelId: string
+  export let userId: string
   let text: string = ""
   $: isEntering = text !== ""
 
-  const sendMessage = (message: string) => broadcastMessage.mutate({
-    message,
-    sender: 'Hwang',
-    channelId
-  })
+  const sendMessage = (message: string, channelId: string) => {
+    const variables = {
+      message,
+      sender: userId,
+      channelId
+    }
+    broadcastMessage.mutate(variables)
+  }
 
   const handleClick = (e: MouseEvent) => {
-    if (isEntering) sendMessage(text)
+    if (isEntering) {
+      sendMessage(text, channelId)
+      text = ""
+    }
   }
 
   const handleEnter = (e: KeyboardEvent) => {
     if (e.key === "Enter" && isEntering) {
       e.preventDefault()
-      sendMessage(text)
+      sendMessage(text, channelId)
       text = ""
     }
   }
