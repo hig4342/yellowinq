@@ -21,6 +21,16 @@ export type Coordinate = {
   longitude: Scalars['Float'];
 };
 
+export type CoordinateInput = {
+  latitude: Scalars['Float'];
+  longitude: Scalars['Float'];
+};
+
+export type LineInput = {
+  end: CoordinateInput;
+  start: CoordinateInput;
+};
+
 export type Message = {
   __typename?: 'Message';
   channelId: Scalars['String'];
@@ -48,6 +58,7 @@ export type MutationBroadcastMessageArgs = {
 export type Query = {
   __typename?: 'Query';
   findIdMessage: Array<Message>;
+  generatePointsOnLine: Array<Coordinate>;
   getCountries: Array<Scalars['String']>;
   getRandomCoordinate: Coordinate;
 };
@@ -55,6 +66,11 @@ export type Query = {
 
 export type QueryFindIdMessageArgs = {
   channelId: Scalars['String'];
+};
+
+
+export type QueryGeneratePointsOnLineArgs = {
+  line: LineInput;
 };
 
 
@@ -144,8 +160,10 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 export type ResolversTypes = {
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   Coordinate: ResolverTypeWrapper<Coordinate>;
+  CoordinateInput: CoordinateInput;
   DateTime: ResolverTypeWrapper<Scalars['DateTime']>;
   Float: ResolverTypeWrapper<Scalars['Float']>;
+  LineInput: LineInput;
   Message: ResolverTypeWrapper<Message>;
   MessageInput: MessageInput;
   Mutation: ResolverTypeWrapper<{}>;
@@ -158,8 +176,10 @@ export type ResolversTypes = {
 export type ResolversParentTypes = {
   Boolean: Scalars['Boolean'];
   Coordinate: Coordinate;
+  CoordinateInput: CoordinateInput;
   DateTime: Scalars['DateTime'];
   Float: Scalars['Float'];
+  LineInput: LineInput;
   Message: Message;
   MessageInput: MessageInput;
   Mutation: {};
@@ -192,6 +212,7 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   findIdMessage?: Resolver<Array<ResolversTypes['Message']>, ParentType, ContextType, RequireFields<QueryFindIdMessageArgs, 'channelId'>>;
+  generatePointsOnLine?: Resolver<Array<ResolversTypes['Coordinate']>, ParentType, ContextType, RequireFields<QueryGeneratePointsOnLineArgs, 'line'>>;
   getCountries?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
   getRandomCoordinate?: Resolver<ResolversTypes['Coordinate'], ParentType, ContextType, RequireFields<QueryGetRandomCoordinateArgs, 'country'>>;
 };

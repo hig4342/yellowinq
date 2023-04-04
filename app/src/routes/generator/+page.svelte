@@ -32,7 +32,7 @@
 </script>
 
 <div>
-  <Map bind:map={map} accessToken={mapboxAccessToken}/>
+  <Map bind:map={map} accessToken={mapboxAccessToken} />
   <select bind:value={selectedCountry}>
     {#each countries as country}
       <option value={country}>

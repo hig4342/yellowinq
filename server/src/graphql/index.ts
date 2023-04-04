@@ -29,6 +29,9 @@ const resolvers: Resolvers = {
     },
     getCountries: () => {
       return GenerateService.getCountries()
+    },
+    generatePointsOnLine: async (_, { line }) => {
+      return await new GenerateService().getPointsOnLine(line.start, line.end, 5)
     }
   },
   Subscription: {
@@ -52,7 +55,7 @@ const resolvers: Resolvers = {
       pubSub.publish('chatting:followMessage', message.channelId, payload)
       return true
     }
-  }
+  },
 }
 
 export const schema = createSchema({typeDefs, resolvers})

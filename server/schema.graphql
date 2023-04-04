@@ -12,6 +12,16 @@ type Coordinate {
   longitude: Float!
 }
 
+input CoordinateInput {
+  latitude: Float!
+  longitude: Float!
+}
+
+input LineInput {
+  start: CoordinateInput!
+  end: CoordinateInput!
+}
+
 input MessageInput {
   message: String!
   sender: String!
@@ -22,6 +32,7 @@ type Query {
   findIdMessage(channelId: String!): [Message!]!
   getRandomCoordinate(country: String!): Coordinate!
   getCountries: [String!]!
+  generatePointsOnLine(line: LineInput!): [Coordinate!]!
 }
 
 type Subscription {

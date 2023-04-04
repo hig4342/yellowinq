@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { graphql } from '$houdini';
+  import { hotKeyAction } from "svelte-legos"
   import Icon from '@iconify/svelte'
 
   const broadcastMessage = graphql(`
@@ -22,20 +23,13 @@
     broadcastMessage.mutate(variables)
   }
 
-  const handleClick = (e: MouseEvent) => {
+  const handleMessage = () => {
     if (isEntering) {
       sendMessage(text, channelId)
       text = ""
     }
   }
 
-  const handleEnter = (e: KeyboardEvent) => {
-    if (e.key === "Enter" && isEntering) {
-      e.preventDefault()
-      sendMessage(text, channelId)
-      text = ""
-    }
-  }
 </script>
 <div class="w-full h-16 p-1">
   <label class="input-group input-group-sm">
@@ -46,14 +40,14 @@
       type="text"
       class="input input-sm w-full bg-gray-50 !rounded-l-full"
       bind:value={text}
-      on:keydown={handleEnter}
+      use:hotKeyAction={{ code: 'Enter', cb: handleMessage }}
     />
     <span class="bg-gray-50 w-12 p-0 justify-center opacity-50">
       <Icon icon="material-symbols:sentiment-satisfied-outline-rounded" width="24" height="24" />
     </span>
     <span class="bg-gray-50 w-12 p-0 justify-center !rounded-r-full">
       {#if isEntering}
-        <button class="bg-[#fae100] rounded-full" on:click={handleClick}>
+        <button class="bg-[#fae100] rounded-full" on:click={handleMessage}>
           <Icon icon="material-symbols:arrow-upward-rounded" width="24" height="24"/>
         </button>
       {:else}

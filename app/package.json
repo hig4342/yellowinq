@@ -13,6 +13,7 @@
     "format": "prettier --plugin-search-dir . --write ."
   },
   "devDependencies": {
+    "@amcharts/amcharts5": "^5.3.8",
     "@dimforge/rapier3d-compat": "^0.11.2",
     "@fontsource/fira-mono": "^4.5.10",
     "@iconify/svelte": "^3.1.0",
@@ -55,6 +56,7 @@
     "date-fns": "^2.29.3",
     "mapbox-gl": "^2.13.0",
     "svelte-french-toast": "^1.0.4-beta.0",
+    "svelte-legos": "^0.1.7",
     "svelvet": "^6.0.12"
   }
 }

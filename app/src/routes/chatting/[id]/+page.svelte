@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { onDestroy, onMount, tick } from 'svelte';
+  import { onDestroy, onMount } from 'svelte';
 	import { format } from 'date-fns';
 	import { graphql } from '$houdini';
 	import type { PageData } from './$houdini'
@@ -9,7 +9,7 @@
 
 	import Icon from '@iconify/svelte';
 	import ChatFooter from './ChatFooter.svelte';
-	import ChatBody, { scrollDown } from './ChatBody.svelte';
+	import ChatBody from './ChatBody.svelte';
 	import ChatToast from './ChatToast.svelte';
 
   export let data: PageData
@@ -34,14 +34,12 @@
         className: 'test'
       })
       messageStore.update((prev) => [...prev, result.data?.followMessage!])
-      handleScroll()
     }
   })
 
   let time = new Date()
 
   onMount(() => {
-    handleScroll()
 		const interval = setInterval(() => {
 			time = new Date();
 		}, 1000);
@@ -54,12 +52,6 @@
   onDestroy(() => {
     followMessage.unlisten()
   })
-
-  const handleScroll = async () => {
-    await tick()
-    scrollDown()
-  }
-
   const handleLogout = () => {
     userStore.update(prev => ({...prev, isLogin: false}))
     goto('/chatting')

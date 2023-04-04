@@ -1,4 +1,4 @@
-import { GetCountriesStore, load_GetCountries } from "$houdini";
+import { GetCountriesStore } from "$houdini";
 
 export const load = async (event) => {
   const store = new GetCountriesStore()
