@@ -1,0 +1,16 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "yellowinq",
+  "compatibility_date": "2025-01-21",
+  "compatibility_flags": [
+    "nodejs_compat"
+  ],
+  "pages_build_output_dir": ".svelte-kit/cloudflare",
+  "observability": {
+    "enabled": true
+  },
+  "vars": {
+    "NODE_VERSION": "22.13.1",
+    "PNPM_VERSION": "9.15.4"
+  }
+}

@@ -1,0 +1,483 @@
+{
+  "commit-message-editor.staticTemplate": [
+    ":tada: feat: Short description",
+    "",
+    "Message body",
+    "",
+    "Message footer"
+  ],
+  "commit-message-editor.dynamicTemplate": [
+    "{gitmoji}{type}{scope}: {description}",
+    "",
+    "{body}",
+    "",
+    "{breaking_change}{footer}"
+  ],
+  "commit-message-editor.tokens": [
+    {
+      "label": "Gitmoji",
+      "name": "gitmoji",
+      "type": "enum",
+      "combobox": true,
+      "options": [
+        {
+          "label": "🎨 Improve structure / format of the code.",
+          "value": ":art:",
+          "description": "art"
+        },
+        {
+          "label": "⚡ Improve performance.",
+          "value": ":zap:",
+          "description": "zap"
+        },
+        {
+          "label": "🔥 Remove code or files.",
+          "value": ":fire:",
+          "description": "fire"
+        },
+        {
+          "label": "🐛 Fix a bug.",
+          "value": ":bug:",
+          "description": "bug"
+        },
+        {
+          "label": "🚑 Critical hotfix.",
+          "value": ":ambulance:",
+          "description": "ambulance"
+        },
+        {
+          "label": "✨ Introduce new features.",
+          "value": ":sparkles:",
+          "description": "sparkles"
+        },
+        {
+          "label": "📝 Add or update documentation.",
+          "value": ":memo:",
+          "description": "memo"
+        },
+        {
+          "label": "🚀 Deploy stuff.",
+          "value": ":rocket:",
+          "description": "rocket"
+        },
+        {
+          "label": "💄 Add or update the UI and style files.",
+          "value": ":lipstick:",
+          "description": "lipstick"
+        },
+        {
+          "label": "🎉 Begin a project.",
+          "value": ":tada:",
+          "description": "tada"
+        },
+        {
+          "label": "✅ Add, update, or pass tests.",
+          "value": ":white_check_mark:",
+          "description": "white_check_mark"
+        },
+        {
+          "label": "🔒 Fix security or privacy issues.",
+          "value": ":lock:",
+          "description": "lock"
+        },
+        {
+          "label": "🔐 Add or update secrets.",
+          "value": ":closed_lock_with_key:",
+          "description": "closed_lock_with_key"
+        },
+        {
+          "label": "🔖 Release / Version tags.",
+          "value": ":bookmark:",
+          "description": "bookmark"
+        },
+        {
+          "label": "🚨 Fix compiler / linter warnings.",
+          "value": ":rotating_light:",
+          "description": "rotating_light"
+        },
+        {
+          "label": "🚧 Work in progress.",
+          "value": ":construction:",
+          "description": "construction"
+        },
+        {
+          "label": "💚 Fix CI Build.",
+          "value": ":green_heart:",
+          "description": "green_heart"
+        },
+        {
+          "label": "⬇️ Downgrade dependencies.",
+          "value": ":arrow_down:",
+          "description": "arrow_down"
+        },
+        {
+          "label": "⬆️ Upgrade dependencies.",
+          "value": ":arrow_up:",
+          "description": "arrow_up"
+        },
+        {
+          "label": "📌 Pin dependencies to specific versions.",
+          "value": ":pushpin:",
+          "description": "pushpin"
+        },
+        {
+          "label": "👷 Add or update CI build system.",
+          "value": ":construction_worker:",
+          "description": "construction_worker"
+        },
+        {
+          "label": "📈 Add or update analytics or track code.",
+          "value": ":chart_with_upwards_trend:",
+          "description": "chart_with_upwards_trend"
+        },
+        {
+          "label": "♻️ Refactor code.",
+          "value": ":recycle:",
+          "description": "recycle"
+        },
+        {
+          "label": "➕ Add a dependency.",
+          "value": ":heavy_plus_sign:",
+          "description": "heavy_plus_sign"
+        },
+        {
+          "label": "➖ Remove a dependency.",
+          "value": ":heavy_minus_sign:",
+          "description": "heavy_minus_sign"
+        },
+        {
+          "label": "🔧 Add or update configuration files.",
+          "value": ":wrench:",
+          "description": "wrench"
+        },
+        {
+          "label": "🔨 Add or update development scripts.",
+          "value": ":hammer:",
+          "description": "hammer"
+        },
+        {
+          "label": "🌐 Internationalization and localization.",
+          "value": ":globe_with_meridians:",
+          "description": "globe_with_meridians"
+        },
+        {
+          "label": "✏️ Fix typos.",
+          "value": ":pencil2:",
+          "description": "pencil2"
+        },
+        {
+          "label": "💩 Write bad code that needs to be improved.",
+          "value": ":poop:",
+          "description": "poop"
+        },
+        {
+          "label": "⏪ Revert changes.",
+          "value": ":rewind:",
+          "description": "rewind"
+        },
+        {
+          "label": "🔀 Merge branches.",
+          "value": ":twisted_rightwards_arrows:",
+          "description": "twisted_rightwards_arrows"
+        },
+        {
+          "label": "📦 Add or update compiled files or packages.",
+          "value": ":package:",
+          "description": "package"
+        },
+        {
+          "label": "👽 Update code due to external API changes.",
+          "value": ":alien:",
+          "description": "alien"
+        },
+        {
+          "label": "🚚 Move or rename resources (e.g. files, paths, routes).",
+          "value": ":truck:",
+          "description": "truck"
+        },
+        {
+          "label": "📄 Add or update license.",
+          "value": ":page_facing_up:",
+          "description": "page_facing_up"
+        },
+        {
+          "label": "💥 Introduce breaking changes.",
+          "value": ":boom:",
+          "description": "boom"
+        },
+        {
+          "label": "🍱 Add or update assets.",
+          "value": ":bento:",
+          "description": "bento"
+        },
+        {
+          "label": "♿ Improve accessibility.",
+          "value": ":wheelchair:",
+          "description": "wheelchair"
+        },
+        {
+          "label": "💡 Add or update comments in source code.",
+          "value": ":bulb:",
+          "description": "bulb"
+        },
+        {
+          "label": "🍻 Write code drunkenly.",
+          "value": ":beers:",
+          "description": "beers"
+        },
+        {
+          "label": "💬 Add or update text and literals.",
+          "value": ":speech_balloon:",
+          "description": "speech_balloon"
+        },
+        {
+          "label": "🗃️ Perform database related changes.",
+          "value": ":card_file_box:",
+          "description": "card_file_box"
+        },
+        {
+          "label": "🔊 Add or update logs.",
+          "value": ":loud_sound:",
+          "description": "loud_sound"
+        },
+        {
+          "label": "🔇 Remove logs.",
+          "value": ":mute:",
+          "description": "mute"
+        },
+        {
+          "label": "👥 Add or update contributor(s).",
+          "value": ":busts_in_silhouette:",
+          "description": "busts_in_silhouette"
+        },
+        {
+          "label": "🚸 Improve user experience / usability.",
+          "value": ":children_crossing:",
+          "description": "children_crossing"
+        },
+        {
+          "label": "🏗️ Make architectural changes.",
+          "value": ":building_construction:",
+          "description": "building_construction"
+        },
+        {
+          "label": "📱 Work on responsive design.",
+          "value": ":iphone:",
+          "description": "iphone"
+        },
+        {
+          "label": "🤡 Mock things.",
+          "value": ":clown_face:",
+          "description": "clown_face"
+        },
+        {
+          "label": "🥚 Add or update an easter egg.",
+          "value": ":egg:",
+          "description": "egg"
+        },
+        {
+          "label": "🙈 Add or update a .gitignore file.",
+          "value": ":see_no_evil:",
+          "description": "see_no_evil"
+        },
+        {
+          "label": "📸 Add or update snapshots.",
+          "value": ":camera_flash:",
+          "description": "camera_flash"
+        },
+        {
+          "label": "⚗️ Perform experiments.",
+          "value": ":alembic:",
+          "description": "alembic"
+        },
+        {
+          "label": "🔍 Improve SEO.",
+          "value": ":mag:",
+          "description": "mag"
+        },
+        {
+          "label": "🏷️ Add or update types.",
+          "value": ":label:",
+          "description": "label"
+        },
+        {
+          "label": "🌱 Add or update seed files.",
+          "value": ":seedling:",
+          "description": "seedling"
+        },
+        {
+          "label": "🚩 Add, update, or remove feature flags.",
+          "value": ":triangular_flag_on_post:",
+          "description": "triangular_flag_on_post"
+        },
+        {
+          "label": "🥅 Catch errors.",
+          "value": ":goal_net:",
+          "description": "goal_net"
+        },
+        {
+          "label": "💫 Add or update animations and transitions.",
+          "value": ":dizzy:",
+          "description": "dizzy"
+        },
+        {
+          "label": "🗑️ Deprecate code that needs to be cleaned up.",
+          "value": ":wastebasket:",
+          "description": "wastebasket"
+        },
+        {
+          "label": "🛂 Work on code related to authorization, roles and permissions.",
+          "value": ":passport_control:",
+          "description": "passport_control"
+        },
+        {
+          "label": "🩹 Simple fix for a non-critical issue.",
+          "value": ":adhesive_bandage:",
+          "description": "adhesive_bandage"
+        },
+        {
+          "label": "🧐 Data exploration/inspection.",
+          "value": ":monocle_face:",
+          "description": "monocle_face"
+        },
+        {
+          "label": "⚰️ Remove dead code.",
+          "value": ":coffin:",
+          "description": "coffin"
+        },
+        {
+          "label": "🧪 Add a failing test.",
+          "value": ":test_tube:",
+          "description": "test_tube"
+        },
+        {
+          "label": "👔 Add or update business logic.",
+          "value": ":necktie:",
+          "description": "necktie"
+        },
+        {
+          "label": "🩺 Add or update healthcheck.",
+          "value": ":stethoscope:",
+          "description": "stethoscope"
+        },
+        {
+          "label": "🧱 Infrastructure related changes.",
+          "value": ":bricks:",
+          "description": "bricks"
+        },
+        {
+          "label": "🧑‍💻 Improve developer experience.",
+          "value": ":technologist:",
+          "description": "technologist"
+        },
+        {
+          "label": "💸 Add sponsorships or money related infrastructure.",
+          "value": ":money_with_wings:",
+          "description": "money_with_wings"
+        },
+        {
+          "label": "🧵 Add or update code related to multithreading or concurrency.",
+          "value": ":thread:",
+          "description": "thread"
+        },
+        {
+          "label": "🦺 Add or update code related to validation.",
+          "value": ":safety_vest:",
+          "description": "safety_vest"
+        }
+      ],
+      "description": "Choose gitmoji"
+    },
+    {
+      "label": "Type",
+      "name": "type",
+      "type": "enum",
+      "options": [
+        {
+          "label": "---",
+          "value": ""
+        },
+        {
+          "label": "build",
+          "description": "Changes that affect the build system or external dependencies (example scopes: gulp, broccoli, npm)"
+        },
+        {
+          "label": "chore",
+          "description": "Updating grunt tasks etc; no production code change"
+        },
+        {
+          "label": "ci",
+          "description": "Changes to our CI configuration files and scripts (example scopes: Travis, Circle, BrowserStack, SauceLabs)"
+        },
+        {
+          "label": "docs",
+          "description": "Documentation only changes"
+        },
+        {
+          "label": "feat",
+          "description": "A new feature"
+        },
+        {
+          "label": "fix",
+          "description": "A bug fix"
+        },
+        {
+          "label": "perf",
+          "description": "A code change that improves performance"
+        },
+        {
+          "label": "refactor",
+          "description": "A code change that neither fixes a bug nor adds a feature"
+        },
+        {
+          "label": "style",
+          "description": "Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc)"
+        },
+        {
+          "label": "test",
+          "description": "Adding missing tests or correcting existing tests"
+        }
+      ],
+      "description": "Type of changes"
+    },
+    {
+      "label": "Scope",
+      "name": "scope",
+      "description": "A scope may be provided to a commit’s type, to provide additional contextual information and is contained within parenthesis, e.g., \"feat(parser): add ability to parse arrays\".",
+      "type": "text",
+      "multiline": false,
+      "prefix": "(",
+      "suffix": ")"
+    },
+    {
+      "label": "Short description",
+      "name": "description",
+      "description": "Short description in the subject line.",
+      "type": "text",
+      "multiline": false
+    },
+    {
+      "label": "Body",
+      "name": "body",
+      "description": "Optional body",
+      "type": "text",
+      "multiline": true,
+      "lines": 5,
+      "maxLines": 10
+    },
+    {
+      "label": "Breaking change",
+      "name": "breaking_change",
+      "type": "boolean",
+      "value": "BREAKING CHANGE: ",
+      "default": false
+    },
+    {
+      "label": "Footer",
+      "name": "footer",
+      "description": "Optional footer",
+      "type": "text",
+      "multiline": true
+    }
+  ]
+}
