@@ -1,4 +1,4 @@
-import type { Handle } from '@sveltejs/kit';
+import { redirect, type Handle } from '@sveltejs/kit';
 
 import { i18n } from '$lib/i18n';
 import { sequence } from '@sveltejs/kit/hooks';
@@ -50,8 +50,21 @@ const handleSupabase: Handle = async ({ event, resolve }) => {
       return name === 'content-range' || name === 'x-supabase-api-version'
     },
   });
-
   return response;
 };
 
-export const handle: Handle = sequence(handleParaglide, handleSupabase);
+const handleAuthGuard: Handle = async ({ event, resolve }) => {
+  const { session } = await event.locals.safeGetSession()
+
+  if (!session && event.url.pathname.startsWith('/admin') && event.url.pathname !== '/admin/auth/signin') {
+    redirect(303, '/admin/auth/signin')
+  }
+
+  if (session && event.url.pathname === '/admin/auth/signin') {
+    redirect(303, '/admin')
+  }
+
+  return resolve(event);
+}
+
+export const handle: Handle = sequence(handleParaglide, handleSupabase, handleAuthGuard);
