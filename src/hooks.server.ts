@@ -37,7 +37,8 @@ const handleSupabase: Handle = async ({ event, resolve }) => {
       return { session: null, user: null }
     }
 
-    return { session, user }
+    delete (session as any).user;
+    return { session: { ...session, user: user! }, user }
   }
 
   return await resolve(event, {
