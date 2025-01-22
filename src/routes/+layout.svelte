@@ -1,17 +1,16 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { invalidate } from '$app/navigation';
+	import type { LayoutProps } from './$types';
 	import { i18n } from '$lib/i18n';
 	import { ParaglideJS } from '@inlang/paraglide-sveltekit';
-	import type { LayoutProps } from './$types';
 	import '../app.css';
 
 	let { children, data }: LayoutProps = $props();
-
-	const { supabase, session } = data;
+	let { supabase, session } = $derived(data);
 
 	onMount(() => {
-		const { data } = supabase.auth.onAuthStateChange((event, newSession) => {
+		const { data } = supabase.auth.onAuthStateChange((_, newSession) => {
 			if (newSession?.expires_at !== session?.expires_at) {
 				invalidate('supabase:auth');
 			}
