@@ -1,6 +1,9 @@
 {
   "recommendations": [
     "svelte.svelte-vscode",
-    "adam-bender.commit-message-editor"
+    "adam-bender.commit-message-editor",
+    "anseki.vscode-color",
+    "formulahendry.auto-rename-tag",
+    "formulahendry.auto-close-tag"
   ]
 }
