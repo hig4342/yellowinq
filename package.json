@@ -44,6 +44,7 @@
 		"@tailwindcss/typography": "^0.5.16",
 		"@tailwindcss/vite": "^4.0.0",
 		"@types/node": "^22.10.7",
+		"bits-ui": "1.0.0-next.78",
 		"clsx": "^2.1.1",
 		"drizzle-kit": "^0.30.2",
 		"eslint": "^9.18.0",
