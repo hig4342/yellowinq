@@ -66,7 +66,7 @@ const config: Config = {
 				sm: "calc(var(--radius) - 4px)"
 			},
 			fontFamily: {
-				sans: [...defaultTheme.fontFamily.sans]
+				sans: ["Paperlogy", ...defaultTheme.fontFamily.sans]
 			},
 			keyframes: {
 				"accordion-down": {
